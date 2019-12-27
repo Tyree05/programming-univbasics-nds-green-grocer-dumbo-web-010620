@@ -1,4 +1,4 @@
-require "pry"
+
 def find_item_by_name_in_collection(name, collection)
   index = 0
   while index < collection.length do
@@ -82,7 +82,6 @@ def checkout(cart, coupons)
   index = 0
   grand_total = 0
     while index < final_cart.length do
-      # binding.pry
         price_for_all = final_cart[index][:price] * final_cart[index][:count]
         grand_total += price_for_all
       index += 1
