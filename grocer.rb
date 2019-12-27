@@ -47,7 +47,7 @@ def apply_coupons(cart, coupons)
     while inner_index < cart.length do
       current_item = cart[inner_index][:item]
       if currrent_coupon == current_item && cart[inner_index][:count] >= coupons[index][:num]
-        cart[inner_index][:count] = cart[inner_index][:count] - coupons[index][:num]
+        cart[inner_index][:count] -= coupons[index][:num]
         cart << {:item => "#{coupons[index][:item]} W/COUPON", :price => coupons[index][:cost]/coupons[index][:num], :clearance => cart[inner_index][:clearance], :count => coupons[index][:num]}
       end
       inner_index += 1
@@ -69,7 +69,7 @@ def apply_clearance(cart)
     end
   index += 1
   end
-  return new_cart
+  return cart
   # Consult README for inputs and outputs
   #
   # REMEMBER: This method **should** update cart
@@ -83,13 +83,12 @@ def checkout(cart, coupons)
   grand_total = 0
     while index < final_cart.length do
       # binding.pry
-      if final_cart[index][:count] > 1
         price_for_all = final_cart[index][:price] * final_cart[index][:count]
         grand_total += price_for_all
-      else
-      grand_total += final_cart[index][:price]
-      end
       index += 1
+    end
+    if grand_total >= 100
+      grand_total -= (grand_total * 0.10)
     end
   return grand_total
 
